@@ -26,11 +26,14 @@ public class SimpleStatelessSessionBean {
 
   private InformationService service;
 
+  public SimpleStatelessSessionBean() {
+  }
+  
   @PostConstruct
   public void init() {
 
     final SimpleStatelessSessionBean bean = this;
-
+    
     ServiceTracker tracker = new ServiceTracker(context,
         InformationService.class.getName(), null) {
 
@@ -49,6 +52,7 @@ public class SimpleStatelessSessionBean {
       }
     };
     tracker.open();
+    
   }
 
   public String getMessage() {

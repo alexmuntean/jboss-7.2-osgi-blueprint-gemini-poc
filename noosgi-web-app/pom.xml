@@ -104,13 +104,37 @@
                   up! -->
             <failOnMissingWebXml>false</failOnMissingWebXml>
             <archive>
-              <manifestEntries>
+              <!-- 
                 <Dependencies>org.osgi.core,
                 org.jboss.osgi.framework,
                 deployment.osgi-simple-service-api:0.0.2,
                 deployment.org.eclipse.gemini.blueprint.core:1.0.2.RELEASE,
                 deployment.ejb-no-osgi-0.0.1-SNAPSHOT.jar
                 </Dependencies>
+                 -->
+              <manifestEntries>
+                <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                <Bundle-ClassPath>.,WEB-INF/classes</Bundle-ClassPath>
+                <Bundle-ManifestVersion>2</Bundle-ManifestVersion>
+                <Bundle-Version>0.0.1.SNAPSHOT</Bundle-Version>
+                <Embed-Directory>WEB-INF/lib</Embed-Directory>
+                <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
+                <Embed-Transitive>true</Embed-Transitive>
+                <Import-Package>
+                  fi.eis.applications.jboss.poc.osgiservice.api,
+                  fi.eis.applications.jboss.poc.ejb,
+                  javax.annotation,
+                  javax.servlet;version="[2.5,3.0]",
+                  javax.servlet.http;version="[2.5,3.0]",
+                  org.osgi.service.http,
+                  org.osgi.framework;version="[1.5,2.0)",
+                  org.eclipse.gemini.blueprint,
+                  org.jboss.logging;version="[3.0,4.0)",
+                  org.osgi.util.tracker
+                </Import-Package>
+                  <!-- !org.osgi.service.blueprint, -->
+                <Private-Package>fi.eis.applications.jboss.poc.webapp</Private-Package>
+                <Web-ContextPath>/jboss-poc-webapp</Web-ContextPath>                
               </manifestEntries>
             </archive>
             </configuration>

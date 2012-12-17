@@ -56,6 +56,7 @@
                             ID -->
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-ManifestVersion>2</Bundle-ManifestVersion>
+                        <Bundle-Version>0.0.1.SNAPSHOT</Bundle-Version>
 
                         <Import-Package><![CDATA[
                           org.osgi.framework;version="[1.5,2.0)",

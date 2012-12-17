@@ -1,4 +1,4 @@
-These are proof-of-concepts for JBoss AS 7 with using Gemini Blueprint.
+These are proof-of-concepts for JBoss AS 7.2 using Gemini Blueprint.
 
 Build with mvn clean package, deploy with mvn jboss-as:deploy.
 
@@ -42,30 +42,28 @@ Scope of these tests would be
     </tr>
     <tr>
         <td>war - osgibundle communication</td>
-        <td>OK</td>
+        <td>Kinda OK</td>
         <td>Using ServiceTracker, which is not optimal</td>
     </tr>
     <tr>
         <td>ejb - osgibundle communication</td>
-        <td>OK</td>
+        <td>Kinda OK</td>
         <td>Using ServiceTracker, which is not optimal</td>
     </tr>
     <tr>
         <td>wab (OSGi war)</td>
-        <td>tbd</td>
-        <td>Note really recommended in JBoss 7.1. JBoss does not directly support at that version, but
-		forks a Jetty process for these, so they don't get the full set on features.
-		Support will be in 7.2.</td>
+        <td>OK</td>
+        <td></td>
     </tr>
     <tr>
         <td>wab - osgibundle communication</td>
-        <td>tbd</td>
+        <td>OK</td>
         <td></td>
     </tr>
     <tr>
         <td>JNDI with OSGi bundle</td>
         <td>OK</td>
-        <td>JBoss 7.1 does not support, needs <a href="http://aries.apache.org/modules/jndiproject.html">Aries JNDI</a> installed</td>
+        <td>Needs <a href="http://aries.apache.org/modules/jndiproject.html">Aries JNDI</a> installed</td>
     </tr>
     <tr>
         <td>JMS with OSGi bundle</td>
@@ -89,7 +87,7 @@ Scope of these tests would be
     </tr>
     <tr>
         <td>Petclinic app - bundle communication</td>
-        <td>OK</td>
+        <td>Kinda OK</td>
         <td>Using ServiceTracker, which is not optimal</td>
     </tr>
 </table>
