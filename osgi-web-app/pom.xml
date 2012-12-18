@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>fi.eis.applications.jboss72.poc.gemini</groupId>
-  <artifactId>web-app-no-osgi</artifactId>
+  <artifactId>osgi-web-app</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>poc: regular web app</name>
@@ -56,16 +56,11 @@
         <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>fi.eis.applications.jboss72.poc.gemini</groupId>
-        <artifactId>ejb-no-osgi</artifactId>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
         <groupId>javax</groupId>
         <artifactId>javaee-api</artifactId>
         <scope>provided</scope>
       </dependency>
-   <dependency>
+    <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-core</artifactId>
         <version>3.1.2.RELEASE</version>
@@ -104,14 +99,6 @@
                   up! -->
             <failOnMissingWebXml>false</failOnMissingWebXml>
             <archive>
-              <!-- 
-                <Dependencies>org.osgi.core,
-                org.jboss.osgi.framework,
-                deployment.osgi-simple-service-api:0.0.2,
-                deployment.org.eclipse.gemini.blueprint.core:1.0.2.RELEASE,
-                deployment.ejb-no-osgi-0.0.1-SNAPSHOT.jar
-                </Dependencies>
-                 -->
               <manifestEntries>
                 <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                 <Bundle-ClassPath>.,WEB-INF/classes</Bundle-ClassPath>
@@ -122,7 +109,6 @@
                 <Embed-Transitive>true</Embed-Transitive>
                 <Import-Package>
                   fi.eis.applications.jboss.poc.osgiservice.api,
-                  fi.eis.applications.jboss.poc.ejb,
                   javax.annotation,
                   javax.servlet;version="[2.5,3.0]",
                   javax.servlet.http;version="[2.5,3.0]",
