@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import fi.eis.applications.jboss.poc.ejb.SimpleStatelessSessionBean;
 
 /**
- * @url http://localhost:8080/jboss-poc-webapp/ejb
+ * @url http://localhost:8080/jboss-poc-webapp-ejb/ejb
  */
 @SuppressWarnings("serial")
 @WebServlet(name = "SimpleBeanClientServlet", urlPatterns = { "/ejb" })
