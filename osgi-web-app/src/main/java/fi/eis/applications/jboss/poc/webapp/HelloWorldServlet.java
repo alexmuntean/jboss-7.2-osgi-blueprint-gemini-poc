@@ -20,6 +20,11 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
+import org.jdom.Attribute;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
 
 import fi.eis.applications.jboss.poc.osgiservice.api.MessageService;
 import org.osgi.util.tracker.ServiceTracker;
@@ -87,6 +92,9 @@ public class HelloWorldServlet extends HttpServlet implements Servlet {
 		writer.println(PAGE_HEADER);
 		writer.println("<h1>"
 				+ (service != null ? service.getMessage() : "null") + "</h1>");
+
+		testEmbeddedDependency(writer);
+		
 		if (bundleContext == null) {
 			writer.print("BundleContext null, cannot use BundleContext to list available OSGi Bundles");
 		} else {
@@ -95,6 +103,25 @@ public class HelloWorldServlet extends HttpServlet implements Servlet {
 		}
 		writer.println(PAGE_FOOTER);
 		writer.close();
+	}
+
+	private void testEmbeddedDependency(PrintWriter writer) throws IOException {
+		writer.println("<p>Trying to get a embedded dependency...</p>");
+		Element company = new Element("company");
+		Document doc = new Document(company);
+		doc.setRootElement(company);
+		
+		XMLOutputter xmlOutput = new XMLOutputter();
+ 
+		// display nice nice
+		xmlOutput.setFormat(Format.getPrettyFormat());
+		String msg = xmlOutput.outputString(doc);
+		
+		writer.println("<p>");
+		writer.println(msg.replaceAll("<", "&lt;").replaceAll(">", "&gt;")); // poor mans xml escape
+		writer.println("</p>");
+		
+		writer.println("<p>done!</p>");
 	}
 
 	private static void listBundlesWith(BundleContext context,
