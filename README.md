@@ -87,8 +87,8 @@ Scope of these tests would be
     </tr>
     <tr>
         <td>Petclinic app - bundle communication</td>
-        <td>Kinda OK</td>
-        <td>Using ServiceTracker, which is not optimal</td>
+        <td>Currently fails</td>
+        <td></td>
     </tr>
 </table>
 
