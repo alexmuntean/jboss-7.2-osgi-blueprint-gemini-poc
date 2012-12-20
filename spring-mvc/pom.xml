@@ -117,7 +117,6 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- 
         <dependency>
           <groupId>org.eclipse.gemini</groupId>
           <artifactId>org.eclipse.gemini.blueprint.core</artifactId>
@@ -125,10 +124,14 @@
         </dependency>
         <dependency>
           <groupId>org.eclipse.gemini</groupId>
+          <artifactId>org.eclipse.gemini.blueprint.io</artifactId>
+          <version>1.0.2.RELEASE</version>
+        </dependency>
+        <dependency>
+          <groupId>org.eclipse.gemini</groupId>
           <artifactId>org.eclipse.gemini.blueprint.extender</artifactId>
           <version>1.0.2.RELEASE</version>
         </dependency>
-        -->
       <!-- our client--> 
 	</dependencies>
     <build>
@@ -136,27 +139,50 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
+				<configuration>
+		            <archive>
+		              <manifestEntries>
+		                <Dependencies>org.osgi.core</Dependencies>
+		              </manifestEntries>
+		            </archive>
+	            </configuration>                
                 <!-- 
                 <configuration>
                     <archive>
                       <manifestEntries>
-                        <Dependencies>
-                        org.osgi.core,
-                        org.jboss.osgi.framework,
-                        deployment.org.eclipse.gemini.blueprint.core:1.0.2.RELEASE,
-                        deployment.org.eclipse.gemini.blueprint.extender:1.0.2.RELEASE,
-                        deployment.org.springframework.context:3.1.3.RELEASE,
-                        deployment.org.springframework.context.support:3.1.3.RELEASE,
-                        deployment.org.springframework.web:3.1.3.RELEASE,
-                        deployment.org.springframework.web.servlet:3.1.3.RELEASE,
-                        deployment.org.springframework.security.core:3.1.3.RELEASE,
-                        deployment.org.springframework.security.web:3.1.3.RELEASE,
-                        deployment.osgi-composite-service:0.0.1.SNAPSHOT
-                        </Dependencies>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-ClassPath>
+.,
+WEB-INF/classes,
+WEB-INF/lib/slf4j-api-1.6.6.jar,
+WEB-INF/lib/aopalliance-1.0.jar,
+WEB-INF/lib/aspectjrt-1.6.10.jar,
+WEB-INF/lib/spring-aop-3.1.1.RELEASE.jar,
+WEB-INF/lib/spring-asm-3.1.1.RELEASE.jar,
+WEB-INF/lib/spring-beans-3.1.1.RELEASE.jar,
+WEB-INF/lib/spring-context-3.1.1.RELEASE.jar,
+WEB-INF/lib/spring-context-support-3.1.1.RELEASE.jar,
+WEB-INF/lib/spring-core-3.1.1.RELEASE.jar,
+WEB-INF/lib/spring-expression-3.1.1.RELEASE.jar,
+WEB-INF/lib/spring-web-3.1.1.RELEASE.jar,
+WEB-INF/lib/spring-webmvc-3.1.1.RELEASE.jar
+						</Bundle-ClassPath>
+		                <Bundle-ManifestVersion>2</Bundle-ManifestVersion>
+		                <Bundle-Version>1.0.0.SNAPSHOT</Bundle-Version>
+		                <Import-Package>
+		                  javax.annotation,
+		                  javax.servlet;version="[2.5,3.0]",
+		                  javax.servlet.http;version="[2.5,3.0]",
+		                  org.osgi.service.http,
+		                  org.osgi.framework;version="[1.5,2.0)",
+		                  org.jboss.logging;version="[3.0,4.0)"
+		                </Import-Package>
+		                <Private-Package>fi.eis.applications</Private-Package>
+		                <Web-ContextPath>/spring-app</Web-ContextPath>  
                       </manifestEntries>
                     </archive>
                 </configuration>
-                -->
+                 -->
             </plugin>
             <plugin>
                 <artifactId>maven-eclipse-plugin</artifactId>
