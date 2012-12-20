@@ -8,8 +8,5 @@
 	http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<!-- 
-	<reference id="InformationService" interface="fi.eis.applications.jboss.poc.compositeservice.gemini.api.InformationService"/>
-	 -->
 	 	
 </blueprint>

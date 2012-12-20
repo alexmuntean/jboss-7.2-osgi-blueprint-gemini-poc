@@ -37,21 +37,26 @@ public class HomeController {
 	//@Resource
 	//BundleContext bundleContext;
 	
-	@Autowired
-	public HomeController(FooInterface fooParam,
-			ServletContext servletContext) {
+	//@Autowired
+	public HomeController(InformationService information/*,
+			FooInterface fooParam,
+			ServletContext servletContext*/) {
+		/*
 		this.foo = fooParam;
-		//logger.info("eis:: infoservice:: " + information);
+		logger.info("eis:: infoservice:: " + information);
 		Enumeration<String> e = (Enumeration<String>)servletContext.getAttributeNames();
 		while (e.hasMoreElements()) {
-			logger.info("eis:: " + e.nextElement());
+			System.out.println("eis:: " + e.nextElement());
 		}
+		*/
+		
+		System.out.println("Foo: " + information);
 		
 		
 		Bundle bundle = FrameworkUtil.getBundle(MessageService.class);
 		if (bundle != null) {
 			BundleContext bundleContext = bundle.getBundleContext();
-			logger.info("Bundle context is " + bundleContext);
+			System.out.println("Bundle context is " + bundleContext);
 		}
 	}
 	
