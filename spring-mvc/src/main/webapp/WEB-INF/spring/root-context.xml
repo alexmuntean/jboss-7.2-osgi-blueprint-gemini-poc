@@ -11,5 +11,5 @@
 	<!-- 
 	<reference id="InformationService" interface="fi.eis.applications.jboss.poc.compositeservice.gemini.api.InformationService"/>
 	 -->
-		
+	 	
 </blueprint>
