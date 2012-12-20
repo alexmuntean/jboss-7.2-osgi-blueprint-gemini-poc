@@ -23,6 +23,7 @@
 	
 	<context:component-scan base-package="fi.eis.applications" />
 	
-	
-	
+	<beans:bean id="myBean" name="myBean"
+		class="fi.eis.applications.beans.FooClass">
+	</beans:bean>
 </beans:beans>
