@@ -50,6 +50,7 @@
 	<module>noosgi-ejb</module>
     <module>osgi-web-app</module>
     <module>petclinic</module>
+	<module>spring-mvc</module>
   </modules>
 
   <dependencyManagement>
