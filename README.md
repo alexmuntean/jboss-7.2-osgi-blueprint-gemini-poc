@@ -86,6 +86,11 @@ Scope of these tests would be
         <td>Related to bundle signing, similar to what applets have. JBoss does not implement.</td>
     </tr>
     <tr>
+        <td>Bare-bones Spring MVC app - bundle communication</td>
+        <td>OK</td>
+        <td></td>
+    </tr>
+    <tr>
         <td>Petclinic app - bundle communication</td>
         <td>OK</td>
         <td></td>
