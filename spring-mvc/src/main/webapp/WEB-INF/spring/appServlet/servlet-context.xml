@@ -25,16 +25,17 @@
 	</beans:bean>
 
 <!-- 	
-	<context:component-scan base-package="fi.eis.applications" />
+	<context:component-scan base-package="fi.eis.applications.beans" />
 	 -->
-	
-	<beans:bean id="myBean" name="myBean"
-		class="fi.eis.applications.beans.FooClass">
-	</beans:bean>
 		
 	<bean class="fi.eis.applications.controllers.HomeController">
 		<argument>
-		<reference interface="fi.eis.applications.jboss.poc.compositeservice.gemini.api.InformationService"/>
+			<reference interface="fi.eis.applications.jboss.poc.compositeservice.gemini.api.InformationService"/>
 	 	</argument>
+	 	<argument>
+			<beans:bean id="myBean" name="myBean"
+				class="fi.eis.applications.beans.FooClass">
+			</beans:bean>
+		</argument>
 	</bean>
 </blueprint>

@@ -10,6 +10,7 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
-<P>  The word from the server is ${message}. </P>
+<P>  The word from locals is ${messageFromLocalBean}. </P>
+<P>  The word from other homies is ${messageFromOSGIService}. </P>
 </body>
 </html>

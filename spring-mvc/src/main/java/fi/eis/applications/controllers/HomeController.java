@@ -33,31 +33,14 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	private FooInterface foo;
-	
-	//@Resource
-	//BundleContext bundleContext;
+	private InformationService informationService;
 	
 	//@Autowired
-	public HomeController(InformationService information/*,
-			FooInterface fooParam,
-			ServletContext servletContext*/) {
-		/*
+	public HomeController(InformationService informationServiceParam,
+			FooInterface fooParam) {
 		this.foo = fooParam;
-		logger.info("eis:: infoservice:: " + information);
-		Enumeration<String> e = (Enumeration<String>)servletContext.getAttributeNames();
-		while (e.hasMoreElements()) {
-			System.out.println("eis:: " + e.nextElement());
-		}
-		*/
 		
-		System.out.println("Foo: " + information);
-		
-		
-		Bundle bundle = FrameworkUtil.getBundle(MessageService.class);
-		if (bundle != null) {
-			BundleContext bundleContext = bundle.getBundleContext();
-			System.out.println("Bundle context is " + bundleContext);
-		}
+		informationService = informationServiceParam;
 	}
 	
 	/**
@@ -73,7 +56,8 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		model.addAttribute("message", (foo != null ? foo.getMessage() : "empty"));
+		model.addAttribute("messageFromLocalBean", (foo != null ? foo.getMessage() : "empty"));
+		model.addAttribute("messageFromOSGIService", (informationService != null ? informationService.getMessage() : "empty"));
 
 		return "home";
 	}
