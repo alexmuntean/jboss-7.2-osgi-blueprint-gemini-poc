@@ -2,6 +2,9 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Collection;
+import java.util.Enumeration;
+
+import javax.servlet.ServletContext;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
@@ -38,27 +41,9 @@ public class FindOwnersForm {
 	private InformationService service;
 
 	@Autowired
-	public FindOwnersForm(Clinic clinic) {
+	public FindOwnersForm(Clinic clinic, InformationService service) {
 		this.clinic = clinic;
-		
-		// TODO is this possible with just Blueprint XML configuration?
-		BundleContext bundleContext = FrameworkUtil.getBundle(InformationService.class).getBundleContext();
-		
-		ServiceTracker serviceTracker = new ServiceTracker(bundleContext, InformationService.class.getName(), null){
-	           @Override
-	           public Object addingService(final ServiceReference sref) {
-	             service = (InformationService) super.addingService(sref);
-	             return service;
-	           }
-
-	           @Override
-	           public void removedService(final ServiceReference sref, final Object sinst) {
-	             super.removedService(sref, service);
-	             service = null;
-	           }    	  
-	       };  
-	    serviceTracker.open(); 
-		
+		this.service = service;
 	}
 
 	@InitBinder

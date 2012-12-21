@@ -87,7 +87,7 @@ Scope of these tests would be
     </tr>
     <tr>
         <td>Petclinic app - bundle communication</td>
-        <td>Currently fails</td>
+        <td>OK</td>
         <td></td>
     </tr>
 </table>
