@@ -159,44 +159,42 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <!-- 
 				<configuration>
-		            <archive>
-		              <manifestEntries>
-		                <!- - JBoss 7.2 - ->
-		                <Dependencies>org.osgi.core,deployment.osgi-composite-service-0.0.1-SNAPSHOT.jar,deployment.osgi-simple-service-api-0.0.2.jar</Dependencies>
-		                <!- -  Jboss 7.1 - ->
-		                <!- - <Dependencies>org.osgi.core,deployment.osgi-composite-service:0.0.1.SNAPSHOT</Dependencies> - ->
-		              </manifestEntries>
-		            </archive>
-	            </configuration>
-	             -->                
+					<archive>
+					  <!-- add the generated manifest to the war -->
+					  <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+					</archive>
+					<failOnMissingWebXml>true</failOnMissingWebXml>
+					<packagingExcludes>WEB-INF/web.xml</packagingExcludes>  
+				</configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <executions>
+                  <execution>
+                    <id>bundle-manifest</id>
+                    <phase>process-classes</phase>
+                    <goals>
+                      <goal>manifest</goal>
+                    </goals>
+                  </execution>
+                </executions>
                 <configuration>
-                    <archive>
-                      <manifestEntries>
-						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-						<Bundle-ClassPath>
-.,
-WEB-INF/classes,
-WEB-INF/lib/slf4j-api-1.6.6.jar,
-WEB-INF/lib/aopalliance-1.0.jar,
-WEB-INF/lib/aspectjrt-1.6.10.jar,
-WEB-INF/lib/spring-aop-3.1.3.RELEASE.jar,
-WEB-INF/lib/spring-asm-3.1.3.RELEASE.jar,
-WEB-INF/lib/spring-beans-3.1.3.RELEASE.jar,
-WEB-INF/lib/spring-context-3.1.3.RELEASE.jar,
-WEB-INF/lib/spring-context-support-3.1.3.RELEASE.jar,
-WEB-INF/lib/spring-core-3.1.3.RELEASE.jar,
-WEB-INF/lib/spring-expression-3.1.3.RELEASE.jar,
-WEB-INF/lib/spring-web-3.1.3.RELEASE.jar,
-WEB-INF/lib/spring-webmvc-3.1.3.RELEASE.jar,
-WEB-INF/lib/org.eclipse.gemini.blueprint.core-1.0.2.RELEASE.jar,
-WEB-INF/lib/org.eclipse.gemini.blueprint.extender-1.0.2.RELEASE.jar,
-WEB-INF/lib/org.eclipse.gemini.blueprint.io-1.0.2.RELEASE.jar
-						</Bundle-ClassPath>
-		                <Bundle-ManifestVersion>2</Bundle-ManifestVersion>
-		                <Bundle-Version>1.0.0.SNAPSHOT</Bundle-Version>
-		                <Import-Package>
+                    <supportedProjectTypes>
+                      <supportedProjectType>jar</supportedProjectType>
+                      <supportedProjectType>bundle</supportedProjectType>
+                      <supportedProjectType>war</supportedProjectType>
+                    </supportedProjectTypes>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Bundle-ClassPath>.,WEB-INF/classes,{maven-dependencies}</Bundle-ClassPath>
+                        <Bundle-ManifestVersion>2</Bundle-ManifestVersion>
+                        <Embed-Directory>WEB-INF/lib</Embed-Directory>
+                        <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
+                        <Embed-Transitive>true</Embed-Transitive>
+                        <Import-Package>
 		                  javax.annotation,
 		                  javax.servlet;version="[2.5,3.0]",
 		                  javax.servlet.http;version="[2.5,3.0]",
@@ -206,13 +204,13 @@ WEB-INF/lib/org.eclipse.gemini.blueprint.io-1.0.2.RELEASE.jar
 		                  org.jboss.logging;version="[3.0,4.0)",
 		                  fi.eis.applications.jboss.poc.osgiservice.api;version="[0.0,1.0)",
 		                  fi.eis.applications.jboss.poc.compositeservice.gemini.api
-		                </Import-Package>
-		                <Private-Package>fi.eis.applications</Private-Package>
-		                <Web-ContextPath>/spring-app</Web-ContextPath>  
-                      </manifestEntries>
-                    </archive>
+                        </Import-Package>
+                        <Private-Package>fi.eis.applications</Private-Package>
+                        <Web-ContextPath>/spring-app</Web-ContextPath>  
+                    </instructions>
                 </configuration>
             </plugin>
+			
             <plugin>
                 <artifactId>maven-eclipse-plugin</artifactId>
                 <version>2.9</version>
