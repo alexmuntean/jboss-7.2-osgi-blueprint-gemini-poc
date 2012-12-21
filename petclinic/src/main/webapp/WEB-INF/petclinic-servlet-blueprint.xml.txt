@@ -2,9 +2,11 @@
 <!--
 	- DispatcherServlet application context for PetClinic's web tier.
 -->
-<blueprint:blueprint xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
-		xmlns:blueprint="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+        xmlns:beans="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:p="http://www.springframework.org/schema/p"
+		xmlns:context="http://www.springframework.org/schema/context"
 		xmlns:oxm="http://www.springframework.org/schema/oxm"
 		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 				http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
@@ -15,7 +17,7 @@
 		- The controllers are autodetected POJOs labeled with the @Controller annotation.
 	-->
 	<context:component-scan base-package="org.springframework.samples.petclinic.web"/>
-    <blueprint:reference id="MessageService" interface="fi.eis.applications.jboss.poc.osgiservice.api.MessageService"/>
+    <reference id="MessageService" interface="fi.eis.applications.jboss.poc.osgiservice.api.MessageService"/>
     
 	<!--
 		- The form-based controllers within this application provide @RequestMapping 
@@ -32,11 +34,11 @@
 		- This bean processes annotated handler methods, applying PetClinic-specific PropertyEditors
 		- for request parameter binding. It overrides the default AnnotationMethodHandlerAdapter.
 	-->
-	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-		<property name="webBindingInitializer">
-			<bean class="org.springframework.samples.petclinic.web.ClinicBindingInitializer"/>
-		</property>
-	</bean>
+	<beans:bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<beans:property name="webBindingInitializer">
+			<beans:bean class="org.springframework.samples.petclinic.web.ClinicBindingInitializer"/>
+		</beans:property>
+	</beans:bean>
 
 	<!--
 		- This bean resolves specific types of exceptions to corresponding logical 
@@ -44,15 +46,15 @@
 		- is to propagate all exceptions to the servlet container: this will happen 
 		- here with all other types of exceptions.
 	-->
-	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-		<property name="exceptionMappings">
-			<props>
-				<prop key="org.springframework.web.servlet.PageNotFound">pageNotFound</prop>
-				<prop key="org.springframework.dao.DataAccessException">dataAccessFailure</prop>
-				<prop key="org.springframework.transaction.TransactionException">dataAccessFailure</prop>
-			</props>
-		</property>
-	</bean>
+	<beans:bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<beans:property name="exceptionMappings">
+			<beans:props>
+				<beans:prop key="org.springframework.web.servlet.PageNotFound">pageNotFound</prop>
+				<beans:prop key="org.springframework.dao.DataAccessException">dataAccessFailure</prop>
+				<beans:prop key="org.springframework.transaction.TransactionException">dataAccessFailure</prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
 
 	<!--
 		- This view resolver delegates to the InternalResourceViewResolver and BeanNameViewResolver,
@@ -61,15 +63,15 @@
 		- BeanNameViewResolver. Note the use of the expression language to refer to the contentType
 		- property of the vets view bean, setting it to 'application/vnd.springsource.samples.petclinic+xml'.
 	-->
-	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-		<property name="mediaTypes">
-			<map>
-				<entry key="xml" value="#{vets.contentType}"/>
-				<entry key="atom" value="#{visits.contentType}"/>
-			</map>
-		</property>
-		<property name="order" value="0"/>
-	</bean>
+	<beans:bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<beans:property name="mediaTypes">
+			<beans:map>
+				<beans:entry key="xml" value="#{vets.contentType}"/>
+				<beans:entry key="atom" value="#{visits.contentType}"/>
+			</beans:map>
+		</beans:property>
+		<beans:property name="order" value="0"/>
+	</beans:bean>
 	
 	<!--
 		- The BeanNameViewResolver is used to pick up the visits view name (below).
@@ -77,7 +79,7 @@
 		- be the first view resolver to be used after the delegating content
 		- negotiating view resolver.
 	 -->
-	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="1"/>
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="1"/>
 	<!--
 
 		- This bean configures the 'prefix' and 'suffix' properties of
@@ -85,18 +87,18 @@
 		- returned by Controllers. For example, a logical view name of "vets"
 		- will be mapped to "/WEB-INF/jsp/vets.jsp".
 	-->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/jsp/"
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/jsp/"
 			p:suffix=".jsp" p:order="2"/>
 
 	<!--
 		- The AtomView rendering a Atom feed of the visits
 	 -->
-	<bean id="visits" class="org.springframework.samples.petclinic.web.VisitsAtomView"/>
+	<beans:bean id="visits" class="org.springframework.samples.petclinic.web.VisitsAtomView"/>
 
-	<bean id="vets" class="org.springframework.web.servlet.view.xml.MarshallingView">
-		<property name="contentType" value="application/vnd.springsource.samples.petclinic+xml"/>
-		<property name="marshaller" ref="marshaller"/>
-	</bean>
+	<beans:bean id="vets" class="org.springframework.web.servlet.view.xml.MarshallingView">
+		<beans:property name="contentType" value="application/vnd.springsource.samples.petclinic+xml"/>
+		<beans:property name="marshaller" ref="marshaller"/>
+	</beans:bean>
 
 	<oxm:jaxb2-marshaller id="marshaller">
 		<oxm:class-to-be-bound name="org.springframework.samples.petclinic.Vets"/>
@@ -107,7 +109,7 @@
 		- Could also reside in the root application context, as it is generic,
 		- but is currently just used within PetClinic's web tier.
 	-->
-	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
+	<beans:bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
 			p:basename="messages"/>
 
-</blueprint:blueprint>
+</blueprint>
