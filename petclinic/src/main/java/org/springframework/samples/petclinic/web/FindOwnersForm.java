@@ -2,14 +2,7 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Collection;
-import java.util.Enumeration;
 
-import javax.servlet.ServletContext;
-
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.framework.ServiceReference;
-import org.osgi.util.tracker.ServiceTracker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.Clinic;
 import org.springframework.samples.petclinic.Owner;
