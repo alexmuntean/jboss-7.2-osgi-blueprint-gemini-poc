@@ -16,14 +16,12 @@ package org.springframework.osgi.web.context.support;
  * limitations under the License.
  */
 
-import java.util.Enumeration;
 import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.FrameworkUtil;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -86,8 +84,6 @@ public class OsgiBundleXmlWebApplicationContext extends OsgiBundleXmlApplication
 
 	/** ServletContext attribute for retrieving the bundle context */
 	public static final String BUNDLE_CONTEXT_ATTRIBUTE = "osgi-bundlecontext"; 
-			//"org.springframework.osgi.web."
-			//+ BundleContext.class.getName();
 
 	/**
 	 * Suffix for WebApplicationContext namespaces.
@@ -119,34 +115,19 @@ public class OsgiBundleXmlWebApplicationContext extends OsgiBundleXmlApplication
 	 */
 	public void setServletContext(ServletContext servletContext) {
 		this.servletContext = servletContext;
-		System.out.println("eis:: Servlet context SET here");
 
 		// look for the attribute only if there is no BundleContext available
 		if (getBundleContext() == null) {
-			System.out.println("eis:: no bundle context previously available");
 
 			// try to locate the bundleContext in the ServletContext
 			if (servletContext != null) {
-				System.out.println("eis:: servlet context not null, checking out attribute "+ BUNDLE_CONTEXT_ATTRIBUTE);
 				Object context = servletContext.getAttribute(BUNDLE_CONTEXT_ATTRIBUTE);
 
 				if (context != null) {
-					System.out.println("eis:: found something");
 					Assert.isInstanceOf(BundleContext.class, context);
-					System.out.println("Using the bundle context located in the servlet context at "
-							+ BUNDLE_CONTEXT_ATTRIBUTE);
+					//logger.debug("Using the bundle context located in the servlet context at "
+					//		+ BUNDLE_CONTEXT_ATTRIBUTE);
 					setBundleContext((BundleContext) context);
-				} else {
-					System.out.println("eis:: did not find it");
-					System.out.println("eis:: found only attributes");
-					Enumeration<String> e = (Enumeration<String>)servletContext.getAttributeNames();
-					while (e.hasMoreElements()) {
-						System.out.println("eis:: " + e.nextElement());
-					}
-					//context = FrameworkUtil.getBundle(InformationService.class)
-					//		.getBundleContext();
-					System.out.println("eis:: looked up context" + context);
-					//setBundleContext((BundleContext) context);
 				}
 			}
 
@@ -154,7 +135,7 @@ public class OsgiBundleXmlWebApplicationContext extends OsgiBundleXmlApplication
 			ApplicationContext parent = getParent();
 
 			if (parent instanceof ConfigurableOsgiBundleApplicationContext) {
-				System.out.println("Using the application context parent's bundle context");
+				//logger.debug("Using the application context parent's bundle context");
 				setBundleContext(((ConfigurableOsgiBundleApplicationContext) parent).getBundleContext());
 			}
 		}

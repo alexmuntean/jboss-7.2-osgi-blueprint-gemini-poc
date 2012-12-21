@@ -32,7 +32,7 @@
 		class="fi.eis.applications.beans.FooClass">
 	</beans:bean>
 		
-	<bean activation="lazy" class="fi.eis.applications.controllers.HomeController">
+	<bean class="fi.eis.applications.controllers.HomeController">
 		<argument>
 		<reference interface="fi.eis.applications.jboss.poc.compositeservice.gemini.api.InformationService"/>
 	 	</argument>
