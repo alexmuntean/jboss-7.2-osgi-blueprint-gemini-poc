@@ -85,7 +85,7 @@
         <scope>provided</scope>
     </dependency>
     <dependency>
-        <groupId>jdom</groupId>
+        <groupId>org.jdom</groupId>
         <artifactId>jdom</artifactId>
         <version>1.1</version>
     </dependency>          
@@ -106,7 +106,8 @@
             <archive>
               <manifestEntries>
                 <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-                <Bundle-ClassPath>.,WEB-INF/classes,WEB-INF/lib/jdom-1.1.jar</Bundle-ClassPath>
+                <Bundle-ClassPath>.,WEB-INF/classes,WEB-INF/lib/jdom-1.1.jar
+                </Bundle-ClassPath>
                 <Bundle-ManifestVersion>2</Bundle-ManifestVersion>
                 <Bundle-Version>0.0.1.SNAPSHOT</Bundle-Version>
                 <Import-Package>
