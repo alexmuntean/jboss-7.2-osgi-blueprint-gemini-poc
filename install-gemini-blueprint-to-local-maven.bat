@@ -7,36 +7,27 @@ REM they have http://repository.springsource.com/ivy/bundles/external/org.eclips
 setlocal EnableDelayedExpansion
 set GEMINI_VERSION=1.0.2.RELEASE
 
-set ARTIFACTFILENAME=gemini.blueprint.core-!GEMINI_VERSION!.jar
-wget "http://ebr.springsource.com/repository/app/bundle/version/download?name=org.eclipse.gemini.blueprint.core&version=!GEMINI_VERSION!&type=binary" -O "!ARTIFACTFILENAME!"
-if exist "!ARTIFACTFILENAME!" (
-  set POMFILEPATH=META-INF/maven/org.eclipse.gemini.blueprint/gemini-blueprint-core/pom.xml
-  jar xf "!ARTIFACTFILENAME!" !POMFILEPATH!
-  call mvn install:install-file "-Dfile=!ARTIFACTFILENAME!" "-DpomFile=!POMFILEPATH!"
-  del "!ARTIFACTFILENAME!"
-  rd /s /q META-INF
-) else (
-  echo Couldn't download !ARTIFACTFILENAME!, wget missing?
-  echo ...
-)
+call:installMavenDependency ^
+  "http://ebr.springsource.com/repository/app/bundle/version/download?name=org.eclipse.gemini.blueprint.core&version=!GEMINI_VERSION!&type=binary" ^
+  gemini.blueprint.core-!GEMINI_VERSION!.jar ^
+  META-INF/maven/org.eclipse.gemini.blueprint/gemini-blueprint-core/pom.xml
 
-set ARTIFACTFILENAME=gemini.blueprint.io-!GEMINI_VERSION!.jar
-wget "http://ebr.springsource.com/repository/app/bundle/version/download?name=org.eclipse.gemini.blueprint.io&version=!GEMINI_VERSION!.RELEASE&type=binary" -O !ARTIFACTFILENAME!
-if exist "!ARTIFACTFILENAME!" (
-  set POMFILEPATH=META-INF/maven/org.eclipse.gemini.blueprint/gemini-blueprint-io/pom.xml
-  jar xf "!ARTIFACTFILENAME!" !POMFILEPATH!
-  call mvn install:install-file "-Dfile=!ARTIFACTFILENAME!" "-DpomFile=!POMFILEPATH!"
-  del "!ARTIFACTFILENAME!"
-  rd /s /q META-INF
-) else (
-  echo Couldn't download !ARTIFACTFILENAME!, wget missing?
-  echo ...
-)
+call:installMavenDependency ^
+  "http://ebr.springsource.com/repository/app/bundle/version/download?name=org.eclipse.gemini.blueprint.io&version=!GEMINI_VERSION!&type=binary" ^
+  gemini.blueprint.io-!GEMINI_VERSION!.jar ^
+  META-INF/maven/org.eclipse.gemini.blueprint/gemini-blueprint-io/pom.xml
+call:installMavenDependency ^
+  "http://ebr.springsource.com/repository/app/bundle/version/download?name=org.eclipse.gemini.blueprint.extender&version=!GEMINI_VERSION!&type=binary" ^
+  gemini.blueprint.extender-!GEMINI_VERSION!.jar ^
+  META-INF/maven/org.eclipse.gemini.blueprint/gemini-blueprint-extender/pom.xml
 
-set ARTIFACTFILENAME=gemini.blueprint.extender-!GEMINI_VERSION!.jar
-wget "http://ebr.springsource.com/repository/app/bundle/version/download?name=org.eclipse.gemini.blueprint.extender&version=!GEMINI_VERSION!.RELEASE&type=binary" -O "!ARTIFACTFILENAME!"
+goto:eof
+
+:installMavenDependency
+set ARTIFACTFILENAME=%~2
+set POMFILEPATH=%~3
+wget "%~1" -O "!ARTIFACTFILENAME!"
 if exist "!ARTIFACTFILENAME!" (
-  set POMFILEPATH=META-INF/maven/org.eclipse.gemini.blueprint/gemini-blueprint-extender/pom.xml
   jar xf "!ARTIFACTFILENAME!" !POMFILEPATH!
   call mvn install:install-file "-Dfile=!ARTIFACTFILENAME!" "-DpomFile=!POMFILEPATH!"
   del "!ARTIFACTFILENAME!"
@@ -45,3 +36,4 @@ if exist "!ARTIFACTFILENAME!" (
   echo Couldn't download !ARTIFACTFILENAME!, wget missing?
   echo ...
 )
+goto:eof
