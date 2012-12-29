@@ -7,6 +7,13 @@ REM they have http://repository.springsource.com/ivy/bundles/external/org.eclips
 setlocal EnableDelayedExpansion
 set GEMINI_VERSION=1.0.2.RELEASE
 
+REM :: pre-step: get gemini blueprint parent if it's not there:
+REM wget --no-check-certificate http://raw.github.com/glyn/Gemini-Blueprint/master/pom.xml -O blueprintparentpom.xml
+REM :: change pom version from 1.0.1.BUILD-SNAPSHOT to 1.0.2.RELEASE
+REM mvn -N --file blueprintparentpom.xml install
+REM del blueprintparentpom.xml
+
+REM and the actual files
 call:installMavenDependency ^
   "http://ebr.springsource.com/repository/app/bundle/version/download?name=org.eclipse.gemini.blueprint.core&version=!GEMINI_VERSION!&type=binary" ^
   gemini.blueprint.core-!GEMINI_VERSION!.jar ^
