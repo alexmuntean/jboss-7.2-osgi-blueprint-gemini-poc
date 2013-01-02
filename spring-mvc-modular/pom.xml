@@ -173,6 +173,7 @@
 		                  fi.eis.applications.jboss.poc.osgiservice.api;version="[0.0,1.0)",
 		                  fi.eis.applications.jboss.poc.compositeservice.gemini.api,
 		                  org.springframework.web.servlet,
+		                  org.springframework.web.servlet.view,
 		                  org.springframework*,
 		                  org.eclipse.gemini.blueprint*
                         </Import-Package>
