@@ -59,7 +59,7 @@ public class HomeController {
 		model.addAttribute("messageFromOSGIService", (informationService != null ? informationService.getMessage() : "empty"));
 		
 		if (exceptionTrigger != null) {
-			foo.throwException();
+			informationService.throwException();
 		}
 
 		return "home";

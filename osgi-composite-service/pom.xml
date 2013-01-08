@@ -22,6 +22,12 @@
         <scope>provided</scope>
       </dependency>
       <dependency>
+        <groupId>fi.eis.applications.jboss72.poc.gemini</groupId>
+        <artifactId>spring-mvc-aop-support</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <scope>provided</scope>
+      </dependency>      
+      <dependency>
         <groupId>org.osgi</groupId>
         <artifactId>org.osgi.core</artifactId>
         <scope>provided</scope>
@@ -61,6 +67,7 @@
                         <Import-Package><![CDATA[
                           org.osgi.framework;version="[1.5,2.0)",
                           fi.eis.applications.jboss.poc.osgiservice.api;version="[0.0,1.0)",
+                          fi.eis.applications.jboss.poc.gemini.spring.aop.support.api,
                           org.eclipse.gemini.blueprint,
                           !org.osgi.service.blueprint
                         ]]></Import-Package>
