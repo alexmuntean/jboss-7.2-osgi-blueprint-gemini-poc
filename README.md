@@ -100,5 +100,10 @@ Scope of these tests would be
         <td>OK</td>
         <td></td>
     </tr>
+    <tr>
+        <td>Aspect-J exception handling from a bundle with basebones Spring MVC app</td>
+        <td>OK</td>
+        <td></td>
+    </tr>
 </table>
 
