@@ -48,7 +48,11 @@
 		    <artifactId>aspectjweaver</artifactId>
 		    <version>1.7.0</version>
 		</dependency>
-
+		<dependency>
+		    <groupId>cglib</groupId>
+		    <artifactId>cglib</artifactId>
+		    <version>2.2.2</version>
+		</dependency>
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -145,17 +149,25 @@
           <version>${gemini.blueprint.version}</version>
         </dependency>        
         <!-- our client -->
+
+        <!-- 
+        <dependency>
+          <groupId>fi.eis.applications.jboss72.poc.gemini</groupId>
+          <artifactId>spring-mvc-aop-support</artifactId>
+          <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        -->
  
 		<dependency>
 		  <groupId>fi.eis.applications.jboss72.poc.gemini</groupId>
 		  <artifactId>osgi-composite-service</artifactId>
 		  <scope>provided</scope>
 		</dependency>
-      <dependency>
-        <groupId>fi.eis.applications.jboss72.poc.gemini</groupId>
-        <artifactId>osgi-simple-service-api</artifactId>
-        <scope>provided</scope>
-      </dependency>
+        <dependency>
+          <groupId>fi.eis.applications.jboss72.poc.gemini</groupId>
+          <artifactId>osgi-simple-service-api</artifactId>
+          <scope>provided</scope>
+        </dependency>
 		        
       <!-- our client--> 
 	</dependencies>

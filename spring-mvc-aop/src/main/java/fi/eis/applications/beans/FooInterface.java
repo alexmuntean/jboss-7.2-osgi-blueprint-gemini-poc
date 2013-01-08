@@ -4,4 +4,6 @@ public interface FooInterface {
 
 	public abstract String getMessage();
 
+	public abstract void throwException();
+
 }

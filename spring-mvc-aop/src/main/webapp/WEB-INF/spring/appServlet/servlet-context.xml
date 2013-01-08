@@ -28,6 +28,7 @@
 
     <!-- AOP part -->	
     <beans:bean id="hijackBeforeMethodBean" class="fi.eis.applications.helpers.HijackBeforeMethod" />
+    <beans:bean id="exceptionHandlerBean" class="fi.eis.applications.jboss.poc.gemini.spring.aop.support.api.ExceptionHandlerAspect" />
     <aop:aspectj-autoproxy/>
     <!-- end AOP -->
         
