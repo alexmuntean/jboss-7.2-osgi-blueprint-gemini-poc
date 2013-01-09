@@ -15,11 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
-
-import fi.eis.applications.beans.FooInterfaceThrowingMyException;
-import fi.op.jopo.aspect.JopoExceptionHandler;
 
 /**
  * Handles requests for the application home page.
@@ -30,24 +25,18 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	private FooInterfaceThrowingMyException foo;
 	private DataSource exampleDS;
 	
 	@Autowired
-	public HomeController(FooInterfaceThrowingMyException fooParam, DataSource exampleDataSource) {
-		this.foo = fooParam;
+	public HomeController(DataSource exampleDataSource) {
 		this.exampleDS = exampleDataSource;
-		logger.info("JopoExceptionHandler is actually " + JopoExceptionHandler.class
-				+ " with class loader " + JopoExceptionHandler.class.getClassLoader());
 	}
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model,
-			@RequestParam(value = "exceptiontrigger", required = false)
-			String exceptionTrigger ) {
+	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		
@@ -57,15 +46,11 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		model.addAttribute("messageFromLocalBean", (foo != null ? foo.getMessage() : "empty"));
 		
-		if (exceptionTrigger != null) {
-			try {
-				this.exampleDS.getConnection("ping", "pong");
-			} catch (SQLException e) {
-				foo.throwException(new IllegalStateException(e));
-			}
-			foo.throwException(); // unless the above didn't do it
+		try {
+			model.addAttribute("messageFromLocalBean", "Test connection: " + exampleDS.getConnection());
+		} catch (SQLException e) {
+			throw new IllegalStateException(e);
 		}
 
 		return "home";
