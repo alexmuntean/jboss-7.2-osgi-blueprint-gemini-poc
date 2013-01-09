@@ -1,0 +1,3 @@
+<jboss-web>
+  <context-root>spring-app-aop-datasource</context-root>
+</jboss-web>

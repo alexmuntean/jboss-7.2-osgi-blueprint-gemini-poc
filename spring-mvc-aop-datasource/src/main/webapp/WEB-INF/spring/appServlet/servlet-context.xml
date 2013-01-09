@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:c="http://www.springframework.org/schema/c"	
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	    http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+
+    <!-- Test to get a data source -->
+	<jee:jndi-lookup id="dataSource" jndi-name="jboss/datasources/ExampleDS"/>
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<mvc:annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+    <!-- AOP part -->
+    <!--  My test exception handler -->
+    <bean id="myExceptionHandlerAspect" class="fi.eis.applications.jboss.poc.gemini.spring.aop.support.api.ExceptionHandlerAspect" />
+    <!-- 
+        Jopo exception handler aspect bean definition. Exception handler catches all exceptions, logs error 
+        information if needed, converts exceptions to standard Jopo base exceptions and throws those exceptions 
+        forward. Exception handler should be used in applications's service facade.
+    -->
+    <!-- 
+    <bean id="jopoExceptionHandlerAspect" class="fi.op.jopo.aspect.JopoExceptionHandlerAspect"/>
+     -->
+    <!-- 
+        Jopo method trace aspect bean definition. Aspect handles method's enter/exit tracing.
+        In Petclinic application we use tracing on service facade methods. PetclinicFacadeImpl 
+        class is marked with @MethodTrace annotation which advices the aspect to trace it.
+        Note that it is also possible to define the pointcut in application context with XML.
+        This might be more convenient because that way it is possible to define pointcut that
+        advices several layers/classes with one definition. Aspect logs all information with 
+        debug level.
+    -->
+    <!-- 
+    <bean id="methodTraceAspect" class="fi.op.jopo.aspect.MethodTraceAspect"/>
+     -->
+    <bean id="methodTraceAspect" class="fi.eis.applications.jboss.poc.gemini.spring.aop.support.api.MyMethodTraceAspect"/>
+    <aop:aspectj-autoproxy />
+    <!-- end AOP -->
+		
+	<bean class="fi.eis.applications.controllers.HomeController">
+	 	<constructor-arg>
+			<bean id="myBean" name="myBean"
+				class="fi.eis.applications.beans.FooClassThrowingMyException">
+			</bean>
+		</constructor-arg>
+        <constructor-arg ref="dataSource" />
+	</bean>
+</beans>
