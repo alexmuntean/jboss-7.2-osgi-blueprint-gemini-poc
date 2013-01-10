@@ -23,9 +23,17 @@
 	 -->
 	<bean id="serviceLocator" class="fi.eis.applications.jboss.poc.gemini.spring.aop.beans.ServiceLocator"
 	   factory-method="getInstance" />
+	<!-- 
     <bean id="dataSource" factory-bean="serviceLocator" factory-method="getDataSource">
         <constructor-arg value="jboss/datasources/ExampleDS" />
     </bean>
+    -->
+    <bean id="dataSource" class="fi.eis.applications.jboss.poc.gemini.spring.aop.beans.OurDataSourceProxy">
+        <constructor-arg ref="serviceLocator" />
+        <constructor-arg>
+            <value>jboss/datasources/ExampleDS</value>
+        </constructor-arg>
+    </bean>    
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
@@ -43,7 +51,7 @@
     <bean id="methodTraceAspect" class="fi.eis.applications.jboss.poc.gemini.spring.aop.support.api.MyMethodTraceAspect"/>
     <aop:aspectj-autoproxy />
     <!-- end AOP -->
-	<bean class="fi.eis.applications.controllers.HomeController">
+	<bean class="fi.eis.applications.jboss.poc.gemini.spring.aop.controllers.HomeController">
     <!-- 
         <constructor-arg ref="serviceLocator" />
         <constructor-arg>
