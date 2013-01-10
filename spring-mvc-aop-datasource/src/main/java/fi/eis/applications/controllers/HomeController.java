@@ -30,8 +30,8 @@ public class HomeController {
 	private DataSource exampleDS;
 	
 	@Autowired
-	public HomeController(final ServiceLocator serviceLocator, final String dataSourceName) {
-		this.exampleDS = serviceLocator.getDataSource(dataSourceName);
+	public HomeController(DataSource dataSource) {
+		this.exampleDS = dataSource;
 	}
 	
 	/**
