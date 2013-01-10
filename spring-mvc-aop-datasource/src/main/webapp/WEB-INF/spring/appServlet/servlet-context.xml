@@ -18,7 +18,17 @@
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 
     <!-- Test to get a data source -->
+    <!-- 
 	<jee:jndi-lookup id="dataSource" jndi-name="jboss/datasources/ExampleDS"/>
+	 -->
+	<bean id="serviceLocator" class="fi.eis.applications.jboss.poc.gemini.spring.aop.beans.ServiceLocator"
+	   factory-method="getInstance" />
+	<!-- 
+    <bean id="dataSource" factory-bean="serviceLocator" factory-method="getDataSource">
+        <constructor-arg value="jboss/datasources/ExampleDS" />
+    </bean>
+    -->
+
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
 
@@ -36,6 +46,12 @@
     <aop:aspectj-autoproxy />
     <!-- end AOP -->
 	<bean class="fi.eis.applications.controllers.HomeController">
+        <constructor-arg ref="serviceLocator" />
+        <constructor-arg>
+            <value>jboss/datasources/ExampleDS</value>
+        </constructor-arg>
+	<!-- 
         <constructor-arg ref="dataSource" />
+         -->
 	</bean>
 </beans>

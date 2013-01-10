@@ -16,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import fi.eis.applications.jboss.poc.gemini.spring.aop.beans.ServiceLocator;
+
 /**
  * Handles requests for the application home page.
  */
@@ -28,8 +30,8 @@ public class HomeController {
 	private DataSource exampleDS;
 	
 	@Autowired
-	public HomeController(DataSource exampleDataSource) {
-		this.exampleDS = exampleDataSource;
+	public HomeController(final ServiceLocator serviceLocator, final String dataSourceName) {
+		this.exampleDS = serviceLocator.getDataSource(dataSourceName);
 	}
 	
 	/**
